@@ -1,0 +1,108 @@
+<!DOCTYPE html> 
+<html lang="en"> 
+<head> 
+  <meta charset="UTF-8" /> 
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" /> 
+  <title>Student Registration</title> 
+  <script src="https://cdn.tailwindcss.com"></script> 
+    <link rel="icon" type="image/png" href="https://cdn1.vectorstock.com/i/1000x1000/68/10/logo-college-vector-12216810.jpg"> <!-- Favicon for branding -->
+
+</head>
+<body class="bg-orange-300"> <!-- Body section with background color; responsive classes mobile first approach-->
+  
+  <!-- Header section with title, logout button and Clock -->
+  <header class="bg-orange-300 text-white py-4 px-2 shadow-md flex flex-col sm:flex-row sm:justify-between items-center"> <!-- Uses sm: prefix to change the layout  -->
+
+    <button onclick="logout()" class="bg-purple-900 px-4 py-2 rounded mb-2 sm:mb-0 hover:bg-gray-600 text-lg">Logout</button> <!-- Logout action button; responsive margin-bottom on small to larger screens -->
+
+    <div class="text-center"> <!-- Wrapper for title texts -->
+      <h1 class="text-3xl sm:text-5xl text-pink-900 font-italic">University Of Madras</h1> <!-- Text size scales up on small to large screens -->
+      <p class="text-2xl sm:text-4xl text-purple-800 italic">Admissions Going On!!!</p>  <!-- Paragraph tag is used -->
+    </div>
+
+    <div id="clock" class="text-green-900 text-2xl mt-2 sm:mt-0"></div> <!-- Live clock placeholder; the margin adapts responsively -->
+  </header>
+  
+  <!-- Body Section -->
+  <section class="bg-orange-300 p-4 sm:p-8"> <!-- padding adapts by default for small screens too -->
+
+    <div class="max-w-4xl mx-auto bg-orange-600 p-6 rounded shadow space-y-4"> <!-- Container fixed up to a max width until vertical space between input elements -->
+      <h2 class="text-3xl text-gray-300 font-bold italic text-center">Student Registration</h2>
+      <p class="text-gray-300 text-lg text-center">Register, edit, and manage student information easily.</p>
+      <div class="text-center">
+        <button class="bg-green-800 px-6 py-3 rounded text-white font-bold hover:bg-gray-700">
+          <a href="../Project2/index.html">Edit/Delete Records</a> <!-- Link provided to redirect to Manging the records page inside styled button -->
+        </button>
+      </div>
+
+
+      <!-- Form section for student registration -->
+<form id="studentForm" method="GET" class="grid grid-cols-1 sm:grid-cols-2 gap-4"> <!-- Student form grid: single column on mobile, two columns on small to large screens -->
+
+  <input type="text" id="studentName" placeholder="Student Name" class="p-2 text-purple-800 border rounded w-full" required> <!-- Name input -->
+
+  <input type="text" id="studentID" placeholder="Student ID" class="p-2 text-purple-800 border rounded w-full" required> <!-- ID input -->
+
+  <input type="email" id="email" placeholder="Email ID" class="p-2 text-purple-800 border rounded w-full col-span-1 sm:col-span-2" required> <!-- Email spans both columns -->
+
+  <input type="text" id="contact" placeholder="Contact Number" class="p-2 text-purple-800 border rounded w-full" required> <!-- Contact input -->
+
+  <input type="date" id="dob" class="p-2 border rounded w-full" required> <!-- Date of Birth input -->
+
+  <input type="text" id="house" placeholder="Address" class="p-2 text-purple-800 border rounded w-full" required> <!-- Address field -->
+
+  <input type="text" id="city" placeholder="City" class="p-2 text-purple-800 border rounded w-full" required> <!-- City field -->
+
+  <input type="text" id="pincode" placeholder="Pincode (max 6 digits)" maxlength="6" class="p-2 text-purple-800 border rounded w-full" required> <!-- Pincode input -->
+
+  <div class="flex gap-2 items-center col-span-1 sm:col-span-2"> <!-- Captcha field and button placed horizontally -->
+    <input type="text" id="captcha" placeholder="Enter Captcha" class="p-2 border rounded flex-1" required> <!-- Captcha input -->
+    <button type="button" onclick="generateCaptcha()" class="bg-pink-700 text-white p-2 rounded">↻</button> <!-- Refresh captcha -->
+    <span id="captchaDisplay" class="font-bold text-xl text-gray-200"></span> <!-- Captcha display -->
+  </div>
+
+  <div class="col-span-1 sm:col-span-2 text-center">
+    <button type="submit" class="bg-gray-800 text-white px-4 py-2 rounded hover:bg-purple-500 w-full">Register</button> <!-- Submit button -->
+  </div>
+</form>
+</div>
+</section>
+
+<!-- Section: registered students table -->
+  <section class="mt-6 px-4 sm:px-8"> 
+    <h2 class="text-3xl sm:text-5xl text-green-800 text-center mb-4">Registered Students</h2>
+
+    <div class="overflow-y-auto overflow-x-auto rounded border"> <!-- Container enables horizontal scroll on narrow screens -->
+
+      <table class="min-w-full text-center text-gray-200 bg-gray-800 text-sm sm:text-lg"> <!-- Table with min width to ensure responsiveness and font-size larger on small to larger screens -->
+        <thead class="bg-red-700"> <!-- Table header with background color-->
+          <tr> <!-- TableRow Ensure input fields are filled horizontally -->
+            <th class="p-2 border">Name</th>
+            <th class="p-2 border">ID</th>
+            <th class="p-2 border">Email</th>
+            <th class="p-2 border">Contact</th>
+            <th class="p-2 border">D.O.B</th>
+            <th class="p-2 border">Address</th>
+          </tr>
+        </thead>  
+        <tbody id="studentTable" class="bg-gray-900"></tbody> <!--Data are entered as Rows as submitted from Studentform Table -->
+      </table>
+    </div>
+  </section>
+  
+  <footer class="bg-orange-800 text-yellow-200 p-4 text-center text base sm:text-lg mt-8"> <!-- Footer has padding, spacing, responsive font sizing -->
+
+    <p>&copy; 2025 University. All rights reserved.</p>
+    <p>If registered, use your Unique Dept ID and DOB (format ddmmyyyy, e.g. 03121990) as your login credentials.</p>
+
+    <div class="mt-2 space-x-4">
+      <a href="tel:+1234567890" class="hover:underline">Call</a>
+      <a href="mailto:Mdsuniv@gmail.com" class="hover:underline">Email</a>
+      <a href="#" class="hover:underline">WhatsApp</a>
+    </div>
+  </footer>
+
+  <script src="app.js"></script> <!-- External JavaScript file for forms and function logics -->
+</body>
+</html>
+
